@@ -15,14 +15,18 @@ public class MediaController {
 
     @PostMapping("/upload")
     public String uploadMedia(@RequestParam("file") MultipartFile file,
-                              @RequestParam("email") String email) {
+                              @RequestParam("email") String email,
+                              @RequestParam("format") String format) {
         try {
-            MediaMessage mediaMessage = new MediaMessage(file, email);
+            MediaMessage mediaMessage = new MediaMessage(file, email, format);
+            System.out.println("Mensagem sendo enviada para a fila...");
             
             mediaService.sendToQueue(mediaMessage);
-
+            
+            System.out.println("Mensagem enviada para a fila com sucesso!");
             return "Upload iniciado com sucesso!";
         } catch (Exception e) {
+            System.out.println("Erro ao iniciar o upload: " + e.getMessage());
             return "Erro ao iniciar o upload: " + e.getMessage();
         }
     }

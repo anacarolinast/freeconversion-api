@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,12 +8,14 @@ public class MediaMessage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private byte[] file; 
+    private byte[] file;
     private String email;
+    private String format; 
 
-    public MediaMessage(MultipartFile multipartFile, String email) throws IOException {
-        this.file = multipartFile.getBytes(); 
+    public MediaMessage(MultipartFile multipartFile, String email, String format) throws IOException {
+        this.file = multipartFile.getBytes();
         this.email = email;
+        this.format = format; 
     }
 
     public byte[] getFile() {
@@ -31,5 +32,13 @@ public class MediaMessage implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
     }
 }
